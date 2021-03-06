@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Envio de email por formulário</title>
+
+  <!-- STYLES -->
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Roboto;
+      background-color: moccasin;
+      text-align: center;
+    }
+
+    h1{
+      font-size: 3rem;
+      color: rgb(255, 145, 0);
+      text-align: center;
+      margin: 50px;
+    }
+
+    #form{
+      width: 60vw;
+      height: 45vh;
+      display: flex;
+      flex-direction: column;
+      background-color: rgb(255, 145, 0);
+      border-radius: 35px;
+      margin: 0 auto;
+      padding: 30px;
+    }
+
+    #name-input{
+      width: 50%;
+      height: 35px;
+      margin: 10px auto;
+    }
+
+    #email-input{
+      width: 50%;
+      height: 35px;
+      margin: 10px auto;
+    }
+
+    #subject-input{
+      width: 50%;
+      height: 35px;
+      margin: 10px auto;
+    }
+
+    #textarea-input{
+      width: 50%;
+      height: 40%;
+      margin: 10px auto;
+    }
+
+    #btn-send{
+      width: 200px;
+      height: 50px;
+      margin: 30px auto;
+      background-color: rgb(255, 145, 0);
+      border: 2px solid rgb(255, 145, 0);
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+      outline: none;
+
+      transition-property: all;
+      transition-duration: 0.5s;
+      transition-timing-function: ease;
+    }
+
+    #btn-send:hover{
+      border: 2px solid rgb(255, 145, 0);
+      background-color: white;
+      color: rgb(255, 145, 0);
+    }
+
+  </style>
+  
+</head>
+
+<body>
+
+  <h1>Exemplo de formulário HTML 5 com NodeJS</h1>
+
+  <form action="/envio" method="POST" id="form">
+    <input type="text" name="nome" id="name-input" placeholder="Digite seu nome!">
+    <input type="email" name="email" id="email-input" placeholder="Digite seu email!">
+    <input type="text" name="assunto" id="subject-input" placeholder="Digite o assunto">
+    <textarea name="area" id="textarea-input" cols="30" rows="10"></textarea>
+  </form>
+
+  <!-- O Botão não pode ficar dentro do form pois quando ele é clicado o evento padrão do form é disparado -->
+  <button onclick="envia()" id="btn-send">Enviar</button>
+  
+
+  <!-- SCRIPTS -->
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <script type="text/javascript">
+
+    // Necessário configurar o axios para o tipo do conteúdo (Content-Type)
+    const api = axios.create({
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+
+    function envia() {
+      const nome = document.getElementById('name-input');
+      const email = document.getElementById('email-input');
+      const subject = document.getElementById('subject-input');
+      const textarea = document.getElementById('textarea-input');
+
+      if (nome.value && email.value && textarea.value) {
+        api.post('http://localhost:3000/envio', {
+          nome: nome.value,
+          email: email.value,
+          subject: subject.value,
+          textarea: textarea.value
+        }).then(msg => {
+          console.log(msg.data)
+        }).catch(erro => {
+          console.log(erro)
+        })
+      } else {
+        alert('Digite os campos necessários');
+      }
+    }
+  </script>
+
+</body>
+
+</html>
