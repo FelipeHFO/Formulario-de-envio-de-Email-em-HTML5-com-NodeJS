@@ -98,7 +98,7 @@
 
   <h1>Exemplo de formulário HTML 5 com NodeJS</h1>
 
-  <form action="/envio" method="POST" id="form">
+  <form method="POST" id="form">
     <input type="text" name="nome" id="name-input" placeholder="Digite seu nome!">
     <input type="email" name="email" id="email-input" placeholder="Digite seu email!">
     <input type="text" name="assunto" id="subject-input" placeholder="Digite o assunto">
@@ -129,7 +129,7 @@
       const textarea = document.getElementById('textarea-input');
 
       if (nome.value && email.value && textarea.value) {
-        api.post('http://localhost:3000/envio', {
+        api.post('http://localhost:3000/', {
           nome: nome.value,
           email: email.value,
           subject: subject.value,

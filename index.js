@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'index.html'));
 })
 
-app.post('/envio', (req, res) => {
+app.post('/', (req, res) => {
   const {nome, email, subject, textarea} = req.body;
   res.send('Formulário enviado com sucesso!')
 })
