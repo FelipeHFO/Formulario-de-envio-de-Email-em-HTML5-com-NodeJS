@@ -129,14 +129,16 @@
       const textarea = document.getElementById('textarea-input');
 
       if (nome.value && email.value && textarea.value) {
-        api.post('http://localhost:3000/', {
+        api.post('http://localhost:3000/envio', {
           nome: nome.value,
           email: email.value,
           subject: subject.value,
           textarea: textarea.value
         }).then(msg => {
+          alert('Mensagem enviada com sucesso!');
           console.log(msg.data)
         }).catch(erro => {
+          alert('Erro no envio da mensagem!');
           console.log(erro)
         })
       } else {
